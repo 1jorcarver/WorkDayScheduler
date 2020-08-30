@@ -58,8 +58,8 @@ var workDay = [
     },
     {
         id: "8",
-        hour: "2:00",
-        time: "2:00",
+        hour: "5:00",
+        time: "5:00",
         ampm: "pm",
         cue: ""
     },
@@ -73,4 +73,38 @@ function displayDate() {
 
 displayDate();
 
+// create form for scheduling work day inside <div>
+workDay.forEach(function(thisTime) {
+    
+    // create rows for each hour of the work day
+    var timeRow = $("<form>").attr({"class": "row"});
+    $(".container").append(timeRow);
+    
+    // create column for each hour of the day
+    var timeColumn = $("<div>").text(`${thisTime.hour}${thisTime.ampm}`).attr({"class": "col-md-2 hour"});
+
+    // create rows and <textarea> for inputing scheduled event
+    var scheduleColumn = $("<div>").attr({"class": "col-md-9 description p-0"});
+    console.log(scheduleColumn);
+    var scheduleData = $("<textarea>");
+    scheduleColumn.append(scheduleData);
+    scheduleData.attr("id", thisTime.id);
+
+    // if else statement to create past, present, future tracking
+    if (thisTime.time < moment().format("HH")) {
+        scheduleData.attr({"class": "past"})
+    } 
+    else if (thisTime.time === moment().format("HH")) {
+        scheduleData.attr({"class": "present"})
+    }
+    else if (thisTime.time > moment().format("HH")) {
+        scheduleData.attr({"class": "future"})
+    };
+
+    // create column and icon for each save button
+    var saveButton = $("<i class='far fa-save'></i>");
+    var saveSchedule = $("<button>").attr({"class": "col-md-1 saveBtn"});
+    saveSchedule.append(saveButton);
+    timeRow.append(timeColumn, scheduleColumn, saveSchedule);
+})
 
