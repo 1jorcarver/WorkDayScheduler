@@ -85,7 +85,6 @@ workDay.forEach(function(thisTime) {
 
     // create rows and <textarea> for inputing scheduled event
     var scheduleColumn = $("<div>").attr({"class": "col-md-9 description p-0"});
-    console.log(scheduleColumn);
     var scheduleData = $("<textarea>");
     scheduleColumn.append(scheduleData);
     scheduleData.attr("id", thisTime.id);
@@ -106,5 +105,37 @@ workDay.forEach(function(thisTime) {
     var saveSchedule = $("<button>").attr({"class": "col-md-1 saveBtn"});
     saveSchedule.append(saveButton);
     timeRow.append(timeColumn, scheduleColumn, saveSchedule);
-})
+});
 
+// save data to localStorage
+function saveCue() {
+    localStorage.setItem("workDay", JSON.stringify(workDay));
+};
+
+function displayCue() {
+    workDay.forEach(function (_thisTime){
+        $(`#${_thisTime.id}`).val(_thisTime.cue);
+    })
+};
+
+function init() {
+    var storeWorkday = JSON.parse(localStorage.getItem("workDay"));
+
+    if (storeWorkday) {
+        workDay = storeWorkday;
+    }
+
+    saveCue();
+    displayCue();
+};
+
+$(".saveBtn").on("click", function(event) {
+    event.preventDefault();
+    var saveInfo = $(this).siblings(".description").children(".future").attr("id");
+    workDay[saveInfo].cue = $(this).siblings(".description").children(".future").val();
+
+    saveCue();
+    displayCue;
+});
+
+init();
