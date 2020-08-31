@@ -18,3 +18,5 @@ The user is able to save their schedule for each hour of the workday. The workda
 ## Website link
 https://1jorcarver.github.io/super-disco/
 
+## Contribution
+I received assistance from my awesome TAs.
