@@ -3,63 +3,63 @@ var workDay = [
     {
         id: "0",
         hour: "09:00",
-        time: "09:00",
+        time: "09",
         ampm: "am",
         cue: ""
     },
     {
         id: "1",
         hour: "10:00",
-        time: "10:00",
+        time: "10",
         ampm: "am",
         cue: ""
     },
     {
         id: "2",
         hour: "11:00",
-        time: "11:00",
+        time: "11",
         ampm: "am",
         cue: ""
     },
     {
         id: "3",
         hour: "12:00",
-        time: "12:00",
+        time: "12",
         ampm: "pm",
         cue: ""
     },
     {
         id: "4",
-        hour: "1:00",
-        time: "1:00",
+        hour: "01:00",
+        time: "13",
         ampm: "pm",
         cue: ""
     },
     {
         id: "5",
-        hour: "2:00",
-        time: "2:00",
+        hour: "02:00",
+        time: "14",
         ampm: "pm",
-        reminder: ""
+        cue: ""
     },
     {
         id: "6",
-        hour: "3:00",
-        time: "3:00",
+        hour: "03:00",
+        time: "15",
         ampm: "pm",
         cue: ""
     },
     {
         id: "7",
-        hour: "4:00",
-        time: "4:00",
+        hour: "04:00",
+        time: "16",
         ampm: "pm",
         cue: ""
     },
     {
         id: "8",
-        hour: "5:00",
-        time: "5:00",
+        hour: "05:00",
+        time: "17",
         ampm: "pm",
         cue: ""
     },
@@ -74,23 +74,24 @@ function displayDate() {
 displayDate();
 
 // create form for scheduling work day inside <div>
-workDay.forEach(function(thisTime) {
+workDay.forEach(function (thisTime) {
     
     // create rows for each hour of the work day
     var timeRow = $("<form>").attr({"class": "row"});
     $(".container").append(timeRow);
     
     // create column for each hour of the day
-    var timeColumn = $("<div>").text(`${thisTime.hour}${thisTime.ampm}`).attr({"class": "col-md-2 hour"});
+    var timeColumn = $("<div>").text(`${thisTime.hour}${thisTime.ampm}`).attr({"class": "col-2 hour"});
 
     // create rows and <textarea> for inputing scheduled event
-    var scheduleColumn = $("<div>").attr({"class": "col-md-9 description p-0"});
+    var scheduleColumn = $("<div>").attr({"class": "col-9 description p-0"});
     var scheduleData = $("<textarea>");
     scheduleColumn.append(scheduleData);
     scheduleData.attr("id", thisTime.id);
 
     // if else statement to create past, present, future tracking
     if (thisTime.time < moment().format("HH")) {
+        console.log(thisTime.time);
         scheduleData.attr({"class": "past"})
     } 
     else if (thisTime.time === moment().format("HH")) {
@@ -98,11 +99,12 @@ workDay.forEach(function(thisTime) {
     }
     else if (thisTime.time > moment().format("HH")) {
         scheduleData.attr({"class": "future"})
+        console.log(thisTime.time + "future");
     };
-
+    console.log(moment().format("HH"));
     // create column and icon for each save button
     var saveButton = $("<i class='far fa-save'></i>");
-    var saveSchedule = $("<button>").attr({"class": "col-md-1 saveBtn"});
+    var saveSchedule = $("<button>").attr({"class": "col-1 saveBtn"});
     saveSchedule.append(saveButton);
     timeRow.append(timeColumn, scheduleColumn, saveSchedule);
 });
@@ -113,7 +115,7 @@ function saveCue() {
 };
 
 function displayCue() {
-    workDay.forEach(function (_thisTime){
+    workDay.forEach(function(_thisTime) {
         $(`#${_thisTime.id}`).val(_thisTime.cue);
     })
 };
