@@ -16,7 +16,7 @@ The user is able to save their schedule for each hour of the workday. The workda
 ![screenshot of website](./Develop/WorkDayScheduler.png)
 
 ## Website link
-https://1jorcarver.github.io/super-disco/
+https://1jorcarver.github.io/WorkDayScheduler/
 
 ## Contribution
 I received assistance from my awesome TAs.
